@@ -2,34 +2,41 @@
 
 ## Objetivo de aprendizaje
 
-En este paso vas a practicar un control de SCA para entender que decision de configuracion aplicar y por que.
+Cerrar el itinerario con una evidencia clara de qué controles quedan operativos.
 
-## Que debe hacer la persona participante
+## Archivo y seccion que debes modificar
 
-1. Revisar el contexto del control en este paso.
-2. Editar la configuracion esperada en `.github/dependabot.yml`.
-3. Guardar y subir el cambio en el flujo normal del repositorio (commit/push o PR).
+- Archivo objetivo: `docs/sca-checklist.md`.
+- Seccion donde aplicar el cambio: checklist final.
+- Resultado esperado: el repositorio incorpora el control de este paso de forma legible y revisable.
 
-## Que configurar exactamente
+## Cambio que debes introducir
 
-- Campo o seccion objetivo: relacionado con "Medalla final sca advanced".
-- Ubicacion principal: `.github/dependabot.yml`.
-- Resultado esperado: que la configuracion refleje el control del paso 10.
+Copia este bloque como base y adáptalo al contexto real del repositorio:
 
-## Checklist de configuracion
+```markdown
+## Dependabot activo
+## Gobierno de PRs activo
+## Excepciones documentadas
+## Reporting disponible
+```
 
-- El cambio del paso 10 esta presente en `.github/dependabot.yml`.
-- El cambio es coherente con el objetivo del paso.
-- El repositorio incluye la evidencia de progreso para este paso.
+## Como adaptarlo correctamente
 
-## Validacion automatica (sin ejecucion manual)
+- Marca solo controles realmente implantados.
+- Usa este documento como resumen final del recorrido.
 
-- `validate-steps.yml` se ejecuta automaticamente por eventos `push`, `pull_request` y `workflow_dispatch`.
-- `scripts/validate-step-10.py` valida que el control de este paso esta aplicado.
-- El estado de progreso se refleja en `.tutorial/state.json`.
+## Que valida el workflow automaticamente
+
+- `validate-steps.yml` se ejecuta con `push`, `pull_request` y `workflow_dispatch`.
+- `scripts/validate-step-10.py` comprueba el archivo y los marcadores esperados de este paso.
+- Debe encontrar el marcador `## Dependabot activo` en `docs/sca-checklist.md`.
+- Debe encontrar el marcador `## Gobierno de PRs activo` en `docs/sca-checklist.md`.
+- Debe encontrar el marcador `## Excepciones documentadas` en `docs/sca-checklist.md`.
+- Debe encontrar el marcador `## Reporting disponible` en `docs/sca-checklist.md`.
 
 ## Criterio de finalizacion
 
-El paso 10 se marca como completado cuando GitHub Actions reporta exito para `validate-step-10.py`.
+El paso 10 queda completado cuando el workflow de GitHub Actions valida este cambio sin errores.
 
-Este es el ultimo paso del itinerario.
+Este es el ultimo paso del tutorial.

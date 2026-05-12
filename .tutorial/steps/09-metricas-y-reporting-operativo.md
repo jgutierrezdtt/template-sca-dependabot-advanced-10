@@ -2,34 +2,41 @@
 
 ## Objetivo de aprendizaje
 
-En este paso vas a practicar un control de SCA para entender que decision de configuracion aplicar y por que.
+Definir qué indicadores sirven para saber si el programa de dependencias mejora o empeora.
 
-## Que debe hacer la persona participante
+## Archivo y seccion que debes modificar
 
-1. Revisar el contexto del control en este paso.
-2. Editar la configuracion esperada en `.github/dependabot.yml`.
-3. Guardar y subir el cambio en el flujo normal del repositorio (commit/push o PR).
+- Archivo objetivo: `docs/dependency-metrics.md`.
+- Seccion donde aplicar el cambio: secciones de medicion y tendencia.
+- Resultado esperado: el repositorio incorpora el control de este paso de forma legible y revisable.
 
-## Que configurar exactamente
+## Cambio que debes introducir
 
-- Campo o seccion objetivo: relacionado con "Metricas y reporting operativo".
-- Ubicacion principal: `.github/dependabot.yml`.
-- Resultado esperado: que la configuracion refleje el control del paso 9.
+Copia este bloque como base y adáptalo al contexto real del repositorio:
 
-## Checklist de configuracion
+```markdown
+## Backlog abierto
+## Tiempo medio de remediacion
+## Excepciones activas
+## Tendencia semanal
+```
 
-- El cambio del paso 9 esta presente en `.github/dependabot.yml`.
-- El cambio es coherente con el objetivo del paso.
-- El repositorio incluye la evidencia de progreso para este paso.
+## Como adaptarlo correctamente
 
-## Validacion automatica (sin ejecucion manual)
+- Usa indicadores que puedas revisar en comité de seguridad.
+- Evita métricas que no produzcan decisiones operativas.
 
-- `validate-steps.yml` se ejecuta automaticamente por eventos `push`, `pull_request` y `workflow_dispatch`.
-- `scripts/validate-step-09.py` valida que el control de este paso esta aplicado.
-- El estado de progreso se refleja en `.tutorial/state.json`.
+## Que valida el workflow automaticamente
+
+- `validate-steps.yml` se ejecuta con `push`, `pull_request` y `workflow_dispatch`.
+- `scripts/validate-step-09.py` comprueba el archivo y los marcadores esperados de este paso.
+- Debe encontrar el marcador `## Backlog abierto` en `docs/dependency-metrics.md`.
+- Debe encontrar el marcador `## Tiempo medio de remediacion` en `docs/dependency-metrics.md`.
+- Debe encontrar el marcador `## Excepciones activas` en `docs/dependency-metrics.md`.
+- Debe encontrar el marcador `## Tendencia semanal` en `docs/dependency-metrics.md`.
 
 ## Criterio de finalizacion
 
-El paso 9 se marca como completado cuando GitHub Actions reporta exito para `validate-step-09.py`.
+El paso 9 queda completado cuando el workflow de GitHub Actions valida este cambio sin errores.
 
 Siguiente paso: Paso 10.

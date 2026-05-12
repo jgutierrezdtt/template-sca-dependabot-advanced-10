@@ -2,34 +2,48 @@
 
 ## Objetivo de aprendizaje
 
-En este paso vas a practicar un control de SCA para entender que decision de configuracion aplicar y por que.
+Extender la cobertura a varios ecosistemas con una estructura clara y mantenible.
 
-## Que debe hacer la persona participante
+## Archivo y seccion que debes modificar
 
-1. Revisar el contexto del control en este paso.
-2. Editar la configuracion esperada en `.github/dependabot.yml`.
-3. Guardar y subir el cambio en el flujo normal del repositorio (commit/push o PR).
+- Archivo objetivo: `.github/dependabot.yml`.
+- Seccion donde aplicar el cambio: lista updates con un bloque por ecosistema.
+- Resultado esperado: el repositorio incorpora el control de este paso de forma legible y revisable.
 
-## Que configurar exactamente
+## Cambio que debes introducir
 
-- Campo o seccion objetivo: relacionado con "Configuracion multi ecosistema".
-- Ubicacion principal: `.github/dependabot.yml`.
-- Resultado esperado: que la configuracion refleje el control del paso 2.
+Copia este bloque como base y adáptalo al contexto real del repositorio:
 
-## Checklist de configuracion
+```yaml
+- package-ecosystem: "npm"
+  directory: "/"
+  schedule:
+    interval: "weekly"
+- package-ecosystem: "pip"
+  directory: "/"
+  schedule:
+    interval: "weekly"
+- package-ecosystem: "docker"
+  directory: "/"
+  schedule:
+    interval: "weekly"
+```
 
-- El cambio del paso 2 esta presente en `.github/dependabot.yml`.
-- El cambio es coherente con el objetivo del paso.
-- El repositorio incluye la evidencia de progreso para este paso.
+## Como adaptarlo correctamente
 
-## Validacion automatica (sin ejecucion manual)
+- Añade mas ecosistemas solo si realmente existen en tu repositorio.
+- No mezcles varios directorios distintos en un mismo bloque si el manifiesto cambia de ruta.
 
-- `validate-steps.yml` se ejecuta automaticamente por eventos `push`, `pull_request` y `workflow_dispatch`.
-- `scripts/validate-step-02.py` valida que el control de este paso esta aplicado.
-- El estado de progreso se refleja en `.tutorial/state.json`.
+## Que valida el workflow automaticamente
+
+- `validate-steps.yml` se ejecuta con `push`, `pull_request` y `workflow_dispatch`.
+- `scripts/validate-step-02.py` comprueba el archivo y los marcadores esperados de este paso.
+- Debe encontrar el marcador `package-ecosystem: "npm"` en `.github/dependabot.yml`.
+- Debe encontrar el marcador `package-ecosystem: "pip"` en `.github/dependabot.yml`.
+- Debe encontrar el marcador `package-ecosystem: "docker"` en `.github/dependabot.yml`.
 
 ## Criterio de finalizacion
 
-El paso 2 se marca como completado cuando GitHub Actions reporta exito para `validate-step-02.py`.
+El paso 2 queda completado cuando el workflow de GitHub Actions valida este cambio sin errores.
 
 Siguiente paso: Paso 3.

@@ -2,34 +2,46 @@
 
 ## Objetivo de aprendizaje
 
-En este paso vas a practicar un control de SCA para entender que decision de configuracion aplicar y por que.
+Automatizar decisiones de revisión, bloqueo o merge sobre PRs de dependencias.
 
-## Que debe hacer la persona participante
+## Archivo y seccion que debes modificar
 
-1. Revisar el contexto del control en este paso.
-2. Editar la configuracion esperada en `.github/dependabot.yml`.
-3. Guardar y subir el cambio en el flujo normal del repositorio (commit/push o PR).
+- Archivo objetivo: `.github/workflows/dependency-governance.yml`.
+- Seccion donde aplicar el cambio: workflow de gobierno de dependencias.
+- Resultado esperado: el repositorio incorpora el control de este paso de forma legible y revisable.
 
-## Que configurar exactamente
+## Cambio que debes introducir
 
-- Campo o seccion objetivo: relacionado con "Quality gate de dependencias".
-- Ubicacion principal: `.github/dependabot.yml`.
-- Resultado esperado: que la configuracion refleje el control del paso 7.
+Copia este bloque como base y adáptalo al contexto real del repositorio:
 
-## Checklist de configuracion
+```yaml
+name: Dependency Governance
+on:
+  pull_request:
+jobs:
+  dependency-policy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check dependency labels
+        run: echo "policy check"
+```
 
-- El cambio del paso 7 esta presente en `.github/dependabot.yml`.
-- El cambio es coherente con el objetivo del paso.
-- El repositorio incluye la evidencia de progreso para este paso.
+## Como adaptarlo correctamente
 
-## Validacion automatica (sin ejecucion manual)
+- Usa un nombre de job que deje claro que gobierna PRs de dependencias.
+- Añade condiciones más estrictas para major o paquetes críticos.
 
-- `validate-steps.yml` se ejecuta automaticamente por eventos `push`, `pull_request` y `workflow_dispatch`.
-- `scripts/validate-step-07.py` valida que el control de este paso esta aplicado.
-- El estado de progreso se refleja en `.tutorial/state.json`.
+## Que valida el workflow automaticamente
+
+- `validate-steps.yml` se ejecuta con `push`, `pull_request` y `workflow_dispatch`.
+- `scripts/validate-step-07.py` comprueba el archivo y los marcadores esperados de este paso.
+- Debe encontrar el marcador `name: Dependency Governance` en `.github/workflows/dependency-governance.yml`.
+- Debe encontrar el marcador `pull_request:` en `.github/workflows/dependency-governance.yml`.
+- Debe encontrar el marcador `dependency-policy:` en `.github/workflows/dependency-governance.yml`.
+- Debe encontrar el marcador `Check dependency labels` en `.github/workflows/dependency-governance.yml`.
 
 ## Criterio de finalizacion
 
-El paso 7 se marca como completado cuando GitHub Actions reporta exito para `validate-step-07.py`.
+El paso 7 queda completado cuando el workflow de GitHub Actions valida este cambio sin errores.
 
 Siguiente paso: Paso 8.

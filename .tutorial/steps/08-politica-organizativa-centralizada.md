@@ -2,34 +2,41 @@
 
 ## Objetivo de aprendizaje
 
-En este paso vas a practicar un control de SCA para entender que decision de configuracion aplicar y por que.
+Documentar las reglas de operación para que el control sea consistente entre repositorios.
 
-## Que debe hacer la persona participante
+## Archivo y seccion que debes modificar
 
-1. Revisar el contexto del control en este paso.
-2. Editar la configuracion esperada en `.github/dependabot.yml`.
-3. Guardar y subir el cambio en el flujo normal del repositorio (commit/push o PR).
+- Archivo objetivo: `docs/dependency-policy.md`.
+- Seccion donde aplicar el cambio: norma organizativa para dependencias.
+- Resultado esperado: el repositorio incorpora el control de este paso de forma legible y revisable.
 
-## Que configurar exactamente
+## Cambio que debes introducir
 
-- Campo o seccion objetivo: relacionado con "Politica organizativa centralizada".
-- Ubicacion principal: `.github/dependabot.yml`.
-- Resultado esperado: que la configuracion refleje el control del paso 8.
+Copia este bloque como base y adáptalo al contexto real del repositorio:
 
-## Checklist de configuracion
+```markdown
+## Cobertura minima
+## Reglas de excepcion
+## SLA de remediacion
+## Criterios de escalado
+```
 
-- El cambio del paso 8 esta presente en `.github/dependabot.yml`.
-- El cambio es coherente con el objetivo del paso.
-- El repositorio incluye la evidencia de progreso para este paso.
+## Como adaptarlo correctamente
 
-## Validacion automatica (sin ejecucion manual)
+- Conecta la política con el workflow y los labels usados en el repositorio.
+- Especifica qué pasa cuando un paquete crítico no se puede actualizar.
 
-- `validate-steps.yml` se ejecuta automaticamente por eventos `push`, `pull_request` y `workflow_dispatch`.
-- `scripts/validate-step-08.py` valida que el control de este paso esta aplicado.
-- El estado de progreso se refleja en `.tutorial/state.json`.
+## Que valida el workflow automaticamente
+
+- `validate-steps.yml` se ejecuta con `push`, `pull_request` y `workflow_dispatch`.
+- `scripts/validate-step-08.py` comprueba el archivo y los marcadores esperados de este paso.
+- Debe encontrar el marcador `## Cobertura minima` en `docs/dependency-policy.md`.
+- Debe encontrar el marcador `## Reglas de excepcion` en `docs/dependency-policy.md`.
+- Debe encontrar el marcador `## SLA de remediacion` en `docs/dependency-policy.md`.
+- Debe encontrar el marcador `## Criterios de escalado` en `docs/dependency-policy.md`.
 
 ## Criterio de finalizacion
 
-El paso 8 se marca como completado cuando GitHub Actions reporta exito para `validate-step-08.py`.
+El paso 8 queda completado cuando el workflow de GitHub Actions valida este cambio sin errores.
 
 Siguiente paso: Paso 9.
