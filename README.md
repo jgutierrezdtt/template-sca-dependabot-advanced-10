@@ -19,6 +19,10 @@ Equipos de AppSec y DevSecOps con experiencia previa en Dependabot que quieran c
 ## Herramientas utilizadas
 
 - GitHub Dependabot
+- npm audit
+- OWASP Dependency-Check
+- OWASP CVE Lite CLI
+- OSV-Scanner
 - GitHub Actions
 - GitHub Security Advisories
 - Scripts de validación del curso
@@ -37,6 +41,7 @@ Equipos de AppSec y DevSecOps con experiencia previa en Dependabot que quieran c
 - [Validar progreso](../../actions/workflows/validate.yml)
 - [Probar integridad del tutorial](../../actions/workflows/test-tutorial.yml)
 - [Ejecutar tests funcionales del tutorial](../../actions/workflows/functional-tests.yml)
+- [Ejecutar benchmark SCA multi-herramienta](../../actions/workflows/sca-tool-benchmark.yml)
 - [Reiniciar tutorial](../../actions/workflows/reset-tutorial.yml)
 - [Ver pasos del tutorial](./.tutorial/steps/)
 
@@ -55,7 +60,7 @@ El laboratorio condensa los 10 controles avanzados más relevantes de Dependabot
 | 4 | Auto-merge con condiciones estrictas |
 | 5 | Excepciones con trazabilidad completa |
 | 6 | Transitividad y análisis de impacto |
-| 7 | Quality gate de dependencias |
+| 7 | Quality gate comparado multi-herramienta |
 | 8 | Política organizativa centralizada |
 | 9 | Métricas y reporting operativo |
 | 10 | Medalla final SCA Advanced |
@@ -79,5 +84,9 @@ Al cerrar el curso se generan artefactos de finalización en:
 ## Referencias
 
 - [Dependabot documentation](https://docs.github.com/code-security/dependabot)
+- [npm audit](https://docs.npmjs.com/cli/v10/commands/npm-audit)
+- [OWASP Dependency-Check](https://owasp.org/www-project-dependency-check/)
+- [OWASP CVE Lite CLI](https://owasp.org/cve-lite-cli/)
+- [OSV-Scanner](https://google.github.io/osv-scanner/)
 - [GitHub Security Advisories](https://github.com/advisories)
 - [GitHub Actions](https://docs.github.com/actions)

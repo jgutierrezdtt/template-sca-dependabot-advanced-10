@@ -1,4 +1,4 @@
-# Paso 7. Quality gate de dependencias
+# Paso 7. Quality gate comparado multi-herramienta
 
 ## Objetivo
 
@@ -10,7 +10,7 @@ En programas maduros de AppSec, este control permite escalar la gestión de depe
 
 ## Explicación técnica
 
-Este paso introduce una práctica avanzada de Dependabot que requiere conocimiento previo y capacidad de decisión técnica autónoma.
+Este paso implementa un quality gate alimentado por la comparación entre `npm audit`, `dependency-check`, `cve-lite-cli` y `osv-scanner`. El gate final debe priorizar hallazgos críticos reproducibles y con remediación clara.
 
 ## Archivos que se modifican
 
@@ -21,11 +21,11 @@ Este paso introduce una práctica avanzada de Dependabot que requiere conocimien
 
 ## Acción esperada del usuario
 
-Implementar el control del paso 7, documentar la decisión técnica y dejar evidencia verificable de su ejecución.
+Ejecutar `sca-tool-benchmark.yml`, revisar diferencias entre motores y definir la política de bloqueo (qué severidad y qué motor/es activan fallo de pipeline).
 
 ## Validación automática
 
-La validación comprueba estructura, coherencia de configuración y avance de estado del tutorial.
+La validación comprueba que la política de quality gate está definida a partir de evidencia comparada y que el benchmark deja artefactos rastreables.
 
 ## Criterio de finalización
 

@@ -1,0 +1,86 @@
+name: SCA Tool Benchmark
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  compare-scanners:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Prepare benchmark project
+        run: |
+          mkdir -p benchmark-project reports
+          cat > benchmark-project/package.json << 'EOF'
+          {
+            "name": "sca-benchmark-project",
+            "version": "1.0.0",
+            "private": true,
+            "dependencies": {
+              "lodash": "4.17.20",
+              "minimist": "0.0.8"
+            }
+          }
+          EOF
+          npm install --package-lock-only --prefix benchmark-project
+
+      - name: Run npm audit
+        run: |
+          npm audit --prefix benchmark-project --json > reports/npm-audit.json || true
+
+      - name: Run OWASP CVE Lite CLI
+        run: |
+          npm install -g cve-lite-cli
+          cve-lite benchmark-project --verbose > reports/cve-lite.txt || true
+
+      - name: Install OSV-Scanner
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/google/osv-scanner/main/scripts/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Run OSV-Scanner
+        run: |
+          osv-scanner --lockfile=benchmark-project/package-lock.json --format json > reports/osv-scanner.json || true
+
+      - name: Run OWASP Dependency-Check
+        uses: dependency-check/Dependency-Check_Action@main
+        with:
+          project: sca-benchmark-project
+          path: benchmark-project
+          format: JSON
+          out: reports
+
+      - name: Build comparison summary
+        run: |
+          {
+            echo "# SCA Benchmark Summary"
+            echo
+            echo "Herramientas ejecutadas: npm audit, dependency-check, cve-lite-cli, osv-scanner."
+            echo
+            echo "## Artefactos"
+            echo "- reports/npm-audit.json"
+            echo "- reports/dependency-check-report.json"
+            echo "- reports/cve-lite.txt"
+            echo "- reports/osv-scanner.json"
+            echo
+            echo "## Criterios de evaluación recomendados"
+            echo "- Cobertura de hallazgos relevantes"
+            echo "- Claridad de remediación para desarrollo"
+            echo "- Ruido operativo (falsos positivos / findings no accionables)"
+            echo "- Coste en CI (tiempo y complejidad de integración)"
+          } > reports/comparison-summary.md
+
+      - name: Upload benchmark reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: sca-tool-benchmark-reports
+          path: reports/
