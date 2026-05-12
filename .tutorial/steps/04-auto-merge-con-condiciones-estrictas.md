@@ -2,43 +2,49 @@
 
 ## Objetivo de aprendizaje
 
-Automatizar decisiones de revisión, bloqueo o merge sobre PRs de dependencias.
+Este paso introduce un control de SCA y debe dejar un cambio comprensible en .github/workflows/dependency-governance.yml.
+
+## Que vas a cambiar y por que
+
+Actualiza .github/workflows/dependency-governance.yml para que el control de "auto merge con condiciones estrictas" quede explícito y revisable.
 
 ## Archivo y seccion que debes modificar
 
 - Archivo objetivo: `.github/workflows/dependency-governance.yml`.
-- Seccion donde aplicar el cambio: workflow de gobierno de dependencias.
-- Resultado esperado: el repositorio incorpora el control de este paso de forma legible y revisable.
+- Aplícalo en la parte del archivo que corresponde al título del paso.
+- Si el archivo aún no existe, créalo con este contenido inicial y luego evoluciona desde ahí en los siguientes pasos.
 
-## Cambio que debes introducir
+## Cambio base recomendado
 
-Copia este bloque como base y adáptalo al contexto real del repositorio:
+Este bloque no es para pegar a ciegas: úsalo como punto de partida y ajústalo al contexto del repositorio.
 
 ```yaml
 name: Dependency Governance
-on:
-  pull_request:
-jobs:
-  dependency-policy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check dependency labels
-        run: echo "policy check"
+pull_request:
+dependency-policy:
+Check dependency labels
 ```
 
 ## Como adaptarlo correctamente
 
-- Usa un nombre de job que deje claro que gobierna PRs de dependencias.
-- Añade condiciones más estrictas para major o paquetes críticos.
+- Mantén el cambio pequeño y centrado en una sola idea por paso.
+- Usa nombres claros para secciones, reglas o jobs.
+- Evita añadir configuración que no esté relacionada con el objetivo del paso.
+
+## Que deberia verse al terminar
+
+- La intención del cambio se entiende leyendo el archivo.
+- El archivo muestra el control sin depender de comentarios ambiguos.
+- Los marcadores esperados del paso aparecen de forma natural en la configuración.
 
 ## Que valida el workflow automaticamente
 
 - `validate-steps.yml` se ejecuta con `push`, `pull_request` y `workflow_dispatch`.
-- `scripts/validate-step-04.py` comprueba el archivo y los marcadores esperados de este paso.
-- Debe encontrar el marcador `name: Dependency Governance` en `.github/workflows/dependency-governance.yml`.
-- Debe encontrar el marcador `pull_request:` en `.github/workflows/dependency-governance.yml`.
-- Debe encontrar el marcador `dependency-policy:` en `.github/workflows/dependency-governance.yml`.
-- Debe encontrar el marcador `Check dependency labels` en `.github/workflows/dependency-governance.yml`.
+- `scripts/validate-step-04.py` comprueba este paso contra el archivo configurado.
+- El workflow busca `name: Dependency Governance` dentro de `.github/workflows/dependency-governance.yml`.
+- El workflow busca `pull_request:` dentro de `.github/workflows/dependency-governance.yml`.
+- El workflow busca `dependency-policy:` dentro de `.github/workflows/dependency-governance.yml`.
+- El workflow busca `Check dependency labels` dentro de `.github/workflows/dependency-governance.yml`.
 
 ## Criterio de finalizacion
 

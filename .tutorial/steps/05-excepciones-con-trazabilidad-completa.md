@@ -2,40 +2,51 @@
 
 ## Objetivo de aprendizaje
 
-Registrar las excepciones para que sean temporales, auditables y comprensibles.
+Este paso introduce un control de SCA y debe dejar un cambio comprensible en docs/dependency-exceptions.yml.
+
+## Que vas a cambiar y por que
+
+Actualiza docs/dependency-exceptions.yml para que el control de "excepciones con trazabilidad completa" quede explícito y revisable.
 
 ## Archivo y seccion que debes modificar
 
 - Archivo objetivo: `docs/dependency-exceptions.yml`.
-- Seccion donde aplicar el cambio: lista de excepciones con trazabilidad.
-- Resultado esperado: el repositorio incorpora el control de este paso de forma legible y revisable.
+- Aplícalo en la parte del archivo que corresponde al título del paso.
+- Si el archivo aún no existe, créalo con este contenido inicial y luego evoluciona desde ahí en los siguientes pasos.
 
-## Cambio que debes introducir
+## Cambio base recomendado
 
-Copia este bloque como base y adáptalo al contexto real del repositorio:
+Este bloque no es para pegar a ciegas: úsalo como punto de partida y ajústalo al contexto del repositorio.
 
 ```yaml
 exceptions:
-  - package: "example-lib"
-    reason: "bloqueo temporal por compatibilidad"
-    owner: "team-security"
-    expires_on: "2026-12-31"
+package:
+reason:
+owner:
+expires_on:
 ```
 
 ## Como adaptarlo correctamente
 
-- Cada excepción debe tener una fecha de caducidad.
-- No aceptes excepciones sin responsable claro.
+- Mantén el cambio pequeño y centrado en una sola idea por paso.
+- Usa nombres claros para secciones, reglas o jobs.
+- Evita añadir configuración que no esté relacionada con el objetivo del paso.
+
+## Que deberia verse al terminar
+
+- La intención del cambio se entiende leyendo el archivo.
+- El archivo muestra el control sin depender de comentarios ambiguos.
+- Los marcadores esperados del paso aparecen de forma natural en la configuración.
 
 ## Que valida el workflow automaticamente
 
 - `validate-steps.yml` se ejecuta con `push`, `pull_request` y `workflow_dispatch`.
-- `scripts/validate-step-05.py` comprueba el archivo y los marcadores esperados de este paso.
-- Debe encontrar el marcador `exceptions:` en `docs/dependency-exceptions.yml`.
-- Debe encontrar el marcador `package:` en `docs/dependency-exceptions.yml`.
-- Debe encontrar el marcador `reason:` en `docs/dependency-exceptions.yml`.
-- Debe encontrar el marcador `owner:` en `docs/dependency-exceptions.yml`.
-- Debe encontrar el marcador `expires_on:` en `docs/dependency-exceptions.yml`.
+- `scripts/validate-step-05.py` comprueba este paso contra el archivo configurado.
+- El workflow busca `exceptions:` dentro de `docs/dependency-exceptions.yml`.
+- El workflow busca `package:` dentro de `docs/dependency-exceptions.yml`.
+- El workflow busca `reason:` dentro de `docs/dependency-exceptions.yml`.
+- El workflow busca `owner:` dentro de `docs/dependency-exceptions.yml`.
+- El workflow busca `expires_on:` dentro de `docs/dependency-exceptions.yml`.
 
 ## Criterio de finalizacion
 
