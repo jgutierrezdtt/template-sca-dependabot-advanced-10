@@ -29,7 +29,7 @@ Equipos de AppSec y DevSecOps con experiencia previa en Dependabot que quieran c
 
 ## Inicio del tutorial
 
-[![Empezar tutorial](https://img.shields.io/badge/Empezar%20tutorial-0b69ff?style=for-the-badge&logo=github&logoColor=white)](../../actions/workflows/start.yml)
+[Empezar tutorial](https://github.com/new?template_name=template-sca-dependabot-advanced-10&template_owner=jgutierrezdtt)
 
 ## Acceso al repositorio
 
