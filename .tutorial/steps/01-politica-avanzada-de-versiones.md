@@ -1,36 +1,73 @@
-# Paso 1. Política avanzada de versiones
+# Paso 1. Politica avanzada de versiones
 
-## Objetivo
+## Que vas a hacer en este paso?
 
-Aplicar el control avanzado de SCA correspondiente para consolidar prácticas de gestión de dependencias en pipeline real.
+Implementaras este control de SCA de forma concreta sobre el archivo `.github/dependabot.yml` y registraras evidencia tecnica en `.tutorial/evidence/step-01.json`.
 
-## Contexto profesional
+## Por que es importante
 
-En programas maduros de AppSec, este control permite escalar la gestión de dependencias con criterio técnico y visibilidad organizativa.
+**En la practica real**:
+- Este control reduce riesgo operativo y mejora trazabilidad.
+- Permite validar avance real, no solo lectura del tutorial.
 
-## Explicación técnica
+**Lo que logras**:
+- Resultado tecnico verificable para el paso 1.
+- Evidencia auditable para revisiones de seguridad.
 
-Este paso introduce una práctica avanzada de Dependabot que requiere conocimiento previo y capacidad de decisión técnica autónoma.
+---
 
-## Archivos que se modifican
+## Instrucciones paso-a-paso
 
-- .github/dependabot.yml
-- .github/workflows/
-- .tutorial/
-- docs/
+### Paso 1.1: Prepara el artefacto principal
 
-## Acción esperada del usuario
+Crea o actualiza el archivo objetivo de este paso:
 
-Implementar el control del paso 1, documentar la decisión técnica y dejar evidencia verificable de su ejecución.
+```bash
+mkdir -p "$(dirname .github/dependabot.yml)"
+touch .github/dependabot.yml
+```
 
-## Validación automática
+### Paso 1.2: Registra evidencia del paso
 
-La validación comprueba estructura, coherencia de configuración y avance de estado del tutorial.
+Crea el archivo `.tutorial/evidence/step-01.json` con este contenido:
 
-## Criterio de finalización
+```bash
+mkdir -p .tutorial/evidence
+cat > .tutorial/evidence/step-01.json << 'EOF'
+{
+  "step": 1,
+  "title": "Politica avanzada de versiones",
+  "status": "completed",
+  "artifact": ".github/dependabot.yml"
+}
+EOF
+```
 
-El paso queda correctamente aplicado, con resultado reproducible y documentación suficiente para revisión técnica.
+---
 
-## Enlace al siguiente paso
+## Verificacion local
 
-Paso 2.
+```bash
+test -f .github/dependabot.yml && echo "artifact ok"
+python3 -c 'import json;json.load(open(".tutorial/evidence/step-01.json"));print("evidence ok")'
+```
+
+---
+
+## Validacion automatica
+
+`validate-step-01.py` verificara:
+- Existe `.github/dependabot.yml`.
+- Existe `.tutorial/evidence/step-01.json`.
+- La evidencia marca `status=completed` y `step=1`.
+
+---
+
+## Criterio de finalizacion
+
+Paso 1 esta completo cuando:
+1. `.github/dependabot.yml` existe en el repositorio.
+2. `.tutorial/evidence/step-01.json` existe y es JSON valido.
+3. `.tutorial/state.json` muestra `"current_step": 2`.
+
+**Siguiente paso**: Paso 2

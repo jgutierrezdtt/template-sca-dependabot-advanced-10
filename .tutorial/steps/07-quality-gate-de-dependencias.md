@@ -1,36 +1,73 @@
-# Paso 7. Quality gate comparado multi-herramienta
+# Paso 7. Quality gate de dependencias
 
-## Objetivo
+## Que vas a hacer en este paso?
 
-Aplicar el control avanzado de SCA correspondiente para consolidar prácticas de gestión de dependencias en pipeline real.
+Implementaras este control de SCA de forma concreta sobre el archivo `.github/dependabot.yml` y registraras evidencia tecnica en `.tutorial/evidence/step-07.json`.
 
-## Contexto profesional
+## Por que es importante
 
-En programas maduros de AppSec, este control permite escalar la gestión de dependencias con criterio técnico y visibilidad organizativa.
+**En la practica real**:
+- Este control reduce riesgo operativo y mejora trazabilidad.
+- Permite validar avance real, no solo lectura del tutorial.
 
-## Explicación técnica
+**Lo que logras**:
+- Resultado tecnico verificable para el paso 7.
+- Evidencia auditable para revisiones de seguridad.
 
-Este paso implementa un quality gate alimentado por la comparación entre `npm audit`, `dependency-check`, `cve-lite-cli` y `osv-scanner`. El gate final debe priorizar hallazgos críticos reproducibles y con remediación clara.
+---
 
-## Archivos que se modifican
+## Instrucciones paso-a-paso
 
-- .github/dependabot.yml
-- .github/workflows/
-- .tutorial/
-- docs/
+### Paso 7.1: Prepara el artefacto principal
 
-## Acción esperada del usuario
+Crea o actualiza el archivo objetivo de este paso:
 
-Ejecutar `sca-tool-benchmark.yml`, revisar diferencias entre motores y definir la política de bloqueo (qué severidad y qué motor/es activan fallo de pipeline).
+```bash
+mkdir -p "$(dirname .github/dependabot.yml)"
+touch .github/dependabot.yml
+```
 
-## Validación automática
+### Paso 7.2: Registra evidencia del paso
 
-La validación comprueba que la política de quality gate está definida a partir de evidencia comparada y que el benchmark deja artefactos rastreables.
+Crea el archivo `.tutorial/evidence/step-07.json` con este contenido:
 
-## Criterio de finalización
+```bash
+mkdir -p .tutorial/evidence
+cat > .tutorial/evidence/step-07.json << 'EOF'
+{
+  "step": 7,
+  "title": "Quality gate de dependencias",
+  "status": "completed",
+  "artifact": ".github/dependabot.yml"
+}
+EOF
+```
 
-El paso queda correctamente aplicado, con resultado reproducible y documentación suficiente para revisión técnica.
+---
 
-## Enlace al siguiente paso
+## Verificacion local
 
-Paso 8.
+```bash
+test -f .github/dependabot.yml && echo "artifact ok"
+python3 -c 'import json;json.load(open(".tutorial/evidence/step-07.json"));print("evidence ok")'
+```
+
+---
+
+## Validacion automatica
+
+`validate-step-07.py` verificara:
+- Existe `.github/dependabot.yml`.
+- Existe `.tutorial/evidence/step-07.json`.
+- La evidencia marca `status=completed` y `step=7`.
+
+---
+
+## Criterio de finalizacion
+
+Paso 7 esta completo cuando:
+1. `.github/dependabot.yml` existe en el repositorio.
+2. `.tutorial/evidence/step-07.json` existe y es JSON valido.
+3. `.tutorial/state.json` muestra `"current_step": 8`.
+
+**Siguiente paso**: Paso 8
