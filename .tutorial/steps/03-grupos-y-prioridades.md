@@ -2,51 +2,59 @@
 
 ## Objetivo de aprendizaje
 
-Este paso introduce un control de SCA y debe dejar un cambio comprensible en .github/dependabot.yml.
+Entender como agrupar actualizaciones no rompedoras para reducir ruido operativo sin perder visibilidad sobre cambios que requieren una revisión más cuidadosa.
 
 ## Que vas a cambiar y por que
 
-Actualiza .github/dependabot.yml para que el control de "grupos y prioridades" quede explícito y revisable.
+En este paso vas a usar grupos en `.github/dependabot.yml` para ordenar mejor la cola de PRs. En un repositorio avanzado, recibir una PR por cada parche menor suele saturar la revisión y hace más difícil distinguir lo importante de lo rutinario.
+
+La política del tutorial busca separar:
+
+- cambios `minor` y `patch`, que suelen poder agruparse
+- cambios potencialmente rompientes, que conviene mantener fuera del grupo rápido
+
+Así el sistema reduce volumen sin borrar señales de riesgo.
 
 ## Archivo y seccion que debes modificar
 
 - Archivo objetivo: `.github/dependabot.yml`.
-- Aplícalo en la parte del archivo que corresponde al título del paso.
-- Si el archivo aún no existe, créalo con este contenido inicial y luego evoluciona desde ahí en los siguientes pasos.
+- Busca el bloque del ecosistema donde quieres aplicar esta agrupación.
+- Este paso no va de auto-merge ni de labels todavía; va de empaquetar con criterio los cambios de bajo impacto relativo.
 
 ## Cambio base recomendado
 
-Este bloque no es para pegar a ciegas: úsalo como punto de partida y ajústalo al contexto del repositorio.
+Usa esta estructura como referencia para agrupar actualizaciones no rompedoras:
 
 ```yaml
 groups:
-non-breaking:
-update-types:
-minor
-patch
+  non-breaking:
+    update-types:
+      - minor
+      - patch
 ```
 
 ## Como adaptarlo correctamente
 
-- Mantén el cambio pequeño y centrado en una sola idea por paso.
-- Usa nombres claros para secciones, reglas o jobs.
-- Evita añadir configuración que no esté relacionada con el objetivo del paso.
+- Mantén el grupo dentro del ecosistema correcto.
+- Usa un nombre de grupo que haga visible la intención de la política.
+- No metas `major` en el mismo grupo si quieres preservar revisión diferenciada para cambios más delicados.
+- Si agrupas demasiado sin criterio, reducirás PRs pero también perderás trazabilidad útil.
 
 ## Que deberia verse al terminar
 
-- La intención del cambio se entiende leyendo el archivo.
-- El archivo muestra el control sin depender de comentarios ambiguos.
-- Los marcadores esperados del paso aparecen de forma natural en la configuración.
+- El archivo muestra un grupo `non-breaking` con los tipos `minor` y `patch`.
+- Otro revisor entiende que la agrupación busca eficiencia sin ocultar cambios de mayor riesgo.
+- La configuración parece diseñada para priorizar, no solo para reducir volumen a cualquier precio.
 
 ## Que valida el workflow automaticamente
 
 - `validate-steps.yml` se ejecuta con `push`, `pull_request` y `workflow_dispatch`.
-- `scripts/validate-step-03.py` comprueba este paso contra el archivo configurado.
-- El workflow busca `groups:` dentro de `.github/dependabot.yml`.
-- El workflow busca `non-breaking:` dentro de `.github/dependabot.yml`.
-- El workflow busca `update-types:` dentro de `.github/dependabot.yml`.
-- El workflow busca `minor` dentro de `.github/dependabot.yml`.
-- El workflow busca `patch` dentro de `.github/dependabot.yml`.
+- `scripts/validate-step-03.py` comprueba que la agrupación exista en `.github/dependabot.yml`.
+- El workflow busca `groups:` dentro del archivo.
+- El workflow busca `non-breaking:` dentro del archivo.
+- El workflow busca `update-types:` dentro del archivo.
+- El workflow busca `minor` dentro del archivo.
+- El workflow busca `patch` dentro del archivo.
 
 ## Criterio de finalizacion
 
