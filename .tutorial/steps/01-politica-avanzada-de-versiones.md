@@ -2,47 +2,64 @@
 
 ## Objetivo de aprendizaje
 
-Este paso introduce un control de SCA y debe dejar un cambio comprensible en .github/dependabot.yml.
+Entender como definir una politica de versiones avanzada en Dependabot para controlar no solo que se actualiza, sino tambien como se propone cada cambio y que excepciones quedan fuera de la norma general.
 
 ## Que vas a cambiar y por que
 
-Actualiza .github/dependabot.yml para que el control de "politica avanzada de versiones" quede explícito y revisable.
+En este paso vas a trabajar sobre `.github/dependabot.yml` para fijar una politica de versionado mas consciente. En un escenario avanzado no basta con activar actualizaciones: necesitas decidir la estrategia general y modelar excepciones especificas cuando una dependencia no puede seguirla.
+
+La combinacion de este paso es deliberada:
+
+- `versioning-strategy` expresa la regla base
+- `ignore` recoge desvíos concretos
+- `dependency-name` obliga a que cada excepción quede acotada a un paquete real
+
+Eso evita dos errores frecuentes: una politica demasiado vaga o una coleccion de excepciones sin criterio comun.
 
 ## Archivo y seccion que debes modificar
 
 - Archivo objetivo: `.github/dependabot.yml`.
-- Aplícalo en la parte del archivo que corresponde al título del paso.
-- Si el archivo aún no existe, créalo con este contenido inicial y luego evoluciona desde ahí en los siguientes pasos.
+- Revisa el bloque del ecosistema donde quieres definir la estrategia avanzada.
+- Este paso no va de añadir todos los detalles del archivo, sino de dejar clara la relación entre regla general y excepción puntual.
 
 ## Cambio base recomendado
 
-Este bloque no es para pegar a ciegas: úsalo como punto de partida y ajústalo al contexto del repositorio.
+Usa esta estructura como referencia para una politica base con una excepción controlada:
 
 ```yaml
-versioning-strategy:
+versioning-strategy: increase
 ignore:
-dependency-name:
+  - dependency-name: "package-with-special-policy"
+    versions:
+      - ">=3.0.0"
 ```
+
+Como leerlo:
+
+- `versioning-strategy: increase` fija la política general de propuesta de cambios.
+- `ignore` abre el espacio de excepciones justificadas.
+- `dependency-name` impide que la excepción quede difusa o demasiado amplia.
 
 ## Como adaptarlo correctamente
 
-- Mantén el cambio pequeño y centrado en una sola idea por paso.
-- Usa nombres claros para secciones, reglas o jobs.
-- Evita añadir configuración que no esté relacionada con el objetivo del paso.
+- Empieza por la estrategia general y usa `ignore` solo para casos concretos.
+- Evita una política en la que todo se resuelve a base de exclusiones.
+- Si excluyes un rango o una versión, asegúrate de que el motivo sea real y revisable.
+- Mantén nombres y restricciones alineados con el ecosistema al que aplican.
 
 ## Que deberia verse al terminar
 
-- La intención del cambio se entiende leyendo el archivo.
-- El archivo muestra el control sin depender de comentarios ambiguos.
-- Los marcadores esperados del paso aparecen de forma natural en la configuración.
+- El archivo deja clara la regla base de actualización.
+- Las excepciones aparecen como desviaciones controladas y no como una desactivación encubierta.
+- Otro revisor puede entender rápidamente cómo se gobiernan las versiones en este repositorio.
 
 ## Que valida el workflow automaticamente
 
 - `validate-steps.yml` se ejecuta con `push`, `pull_request` y `workflow_dispatch`.
-- `scripts/validate-step-01.py` comprueba este paso contra el archivo configurado.
-- El workflow busca `versioning-strategy:` dentro de `.github/dependabot.yml`.
-- El workflow busca `ignore:` dentro de `.github/dependabot.yml`.
-- El workflow busca `dependency-name:` dentro de `.github/dependabot.yml`.
+- `scripts/validate-step-01.py` comprueba que la politica avanzada exista en `.github/dependabot.yml`.
+- El workflow busca `versioning-strategy:` dentro del archivo.
+- El workflow busca `ignore:` dentro del archivo.
+- El workflow busca `dependency-name:` dentro del archivo.
 
 ## Criterio de finalizacion
 
