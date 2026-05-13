@@ -2,49 +2,62 @@
 
 ## Objetivo de aprendizaje
 
-Este paso introduce un control de SCA y debe dejar un cambio comprensible en docs/dependabot-triage.md.
+Entender que el impacto real de una vulnerabilidad cambia cuando la dependencia es transitiva y cuando su scope limita o amplifica la exposición del sistema.
 
 ## Que vas a cambiar y por que
 
-Actualiza docs/dependabot-triage.md para que el control de "transitividad y analisis de impacto" quede explícito y revisable.
+En este paso vas a reforzar `docs/dependabot-triage.md` para que el análisis no se quede en el nombre del paquete vulnerable. En escenarios avanzados necesitas responder dos preguntas adicionales:
+
+- ¿la dependencia es directa o llega arrastrada por otra?
+- ¿el scope y el contexto de uso hacen que el impacto sea mayor o menor?
+
+Eso cambia la decisión final porque también cambia tu capacidad de remediación. A veces no puedes actualizar el paquete afectado directamente; tienes que mover una dependencia padre o aceptar una mitigación temporal.
 
 ## Archivo y seccion que debes modificar
 
 - Archivo objetivo: `docs/dependabot-triage.md`.
-- Aplícalo en la parte del archivo que corresponde al título del paso.
-- Si el archivo aún no existe, créalo con este contenido inicial y luego evoluciona desde ahí en los siguientes pasos.
+- Mantén las cuatro secciones base del documento.
+- Refuerza sobre todo `## Paquete afectado`, `## Impacto en negocio` y `## Decision` con la información de transitividad y alcance.
 
 ## Cambio base recomendado
 
-Este bloque no es para pegar a ciegas: úsalo como punto de partida y ajústalo al contexto del repositorio.
+Usa esta estructura como base para un triage con contexto suficiente:
 
 ```markdown
 ## Paquete afectado
+Indica si la dependencia es directa o transitiva y desde qué paquete principal llega.
+
 ## Severidad tecnica
+Resume la vulnerabilidad y su severidad.
+
 ## Impacto en negocio
+Explica si el scope es de producción, desarrollo, build o test y qué cambia eso en el riesgo.
+
 ## Decision
+Aclara si puedes corregir directamente o si dependes de una actualización en cadena.
 ```
 
 ## Como adaptarlo correctamente
 
-- Mantén el cambio pequeño y centrado en una sola idea por paso.
-- Usa nombres claros para secciones, reglas o jobs.
-- Evita añadir configuración que no esté relacionada con el objetivo del paso.
+- No trates una dependencia transitiva como si estuviera bajo control directo si no lo está.
+- No ignores una transitive solo porque no aparezca en el manifiesto principal.
+- Explica el scope con precisión; runtime y tooling no implican el mismo nivel de urgencia.
+- Haz que la decisión final refleje tanto exposición como capacidad real de corrección.
 
 ## Que deberia verse al terminar
 
-- La intención del cambio se entiende leyendo el archivo.
-- El archivo muestra el control sin depender de comentarios ambiguos.
-- Los marcadores esperados del paso aparecen de forma natural en la configuración.
+- El documento deja claro cómo llega la dependencia vulnerable al proyecto.
+- Otro revisor puede entender si el impacto está en runtime o en un scope más acotado.
+- La decisión final parece apoyada en exposición y remediación real, no solo en la CVE.
 
 ## Que valida el workflow automaticamente
 
 - `validate-steps.yml` se ejecuta con `push`, `pull_request` y `workflow_dispatch`.
-- `scripts/validate-step-06.py` comprueba este paso contra el archivo configurado.
-- El workflow busca `## Paquete afectado` dentro de `docs/dependabot-triage.md`.
-- El workflow busca `## Severidad tecnica` dentro de `docs/dependabot-triage.md`.
-- El workflow busca `## Impacto en negocio` dentro de `docs/dependabot-triage.md`.
-- El workflow busca `## Decision` dentro de `docs/dependabot-triage.md`.
+- `scripts/validate-step-06.py` comprueba que el documento de triage conserve sus cuatro secciones base en `docs/dependabot-triage.md`.
+- El workflow busca `## Paquete afectado` dentro del archivo.
+- El workflow busca `## Severidad tecnica` dentro del archivo.
+- El workflow busca `## Impacto en negocio` dentro del archivo.
+- El workflow busca `## Decision` dentro del archivo.
 
 ## Criterio de finalizacion
 
