@@ -2,49 +2,64 @@
 
 ## Objetivo de aprendizaje
 
-Este paso introduce un control de SCA y debe dejar un cambio comprensible en docs/dependency-metrics.md.
+Entender qué métricas ayudan a operar el programa SCA en el día a día y no solo a presentar estado una vez al mes.
 
 ## Que vas a cambiar y por que
 
-Actualiza docs/dependency-metrics.md para que el control de "metricas y reporting operativo" quede explícito y revisable.
+En este paso vas a trabajar sobre `docs/dependency-metrics.md` con foco operativo. La idea es que el documento sirva para responder preguntas prácticas: cuánto trabajo queda abierto, cuánto tardas en cerrarlo, cuántas excepciones siguen consumiendo capacidad y si la tendencia semanal mejora o empeora.
+
+Estas métricas no son solo reporting; son señales de gestión:
+
+- `## Backlog abierto` muestra carga pendiente
+- `## Tiempo medio de remediacion` muestra velocidad real de cierre
+- `## Excepciones activas` muestra deuda aceptada todavía viva
+- `## Tendencia semanal` muestra si el sistema converge o se atasca
 
 ## Archivo y seccion que debes modificar
 
 - Archivo objetivo: `docs/dependency-metrics.md`.
-- Aplícalo en la parte del archivo que corresponde al título del paso.
-- Si el archivo aún no existe, créalo con este contenido inicial y luego evoluciona desde ahí en los siguientes pasos.
+- Revisa las cuatro secciones base que exige el validador.
+- Este paso no va de poner números por ponerlos, sino de dejar un tablero que ayude a decidir dónde actuar primero.
 
 ## Cambio base recomendado
 
-Este bloque no es para pegar a ciegas: úsalo como punto de partida y ajústalo al contexto del repositorio.
+Usa esta estructura como base para un seguimiento operativo de deuda:
 
 ```markdown
 ## Backlog abierto
+Indica cuántas alertas o PRs de dependencias siguen pendientes y cuál es su volumen relativo.
+
 ## Tiempo medio de remediacion
+Mide cuánto tarda el equipo en cerrar actualizaciones o vulnerabilidades relevantes.
+
 ## Excepciones activas
+Cuenta cuántas decisiones de aceptación de riesgo siguen abiertas y qué peso tienen.
+
 ## Tendencia semanal
+Describe si backlog y excepciones suben, bajan o se mantienen durante la semana.
 ```
 
 ## Como adaptarlo correctamente
 
-- Mantén el cambio pequeño y centrado en una sola idea por paso.
-- Usa nombres claros para secciones, reglas o jobs.
-- Evita añadir configuración que no esté relacionada con el objetivo del paso.
+- Elige métricas que el equipo pueda actualizar y usar de verdad.
+- Evita mezclar todo en un único valor que no permita ver bloqueos o cuellos de botella.
+- Relaciona backlog, tiempo de remediación y excepciones para que la lectura tenga contexto.
+- Si una tendencia empeora, el documento debería facilitar detectar por qué, no solo señalar el síntoma.
 
 ## Que deberia verse al terminar
 
-- La intención del cambio se entiende leyendo el archivo.
-- El archivo muestra el control sin depender de comentarios ambiguos.
-- Los marcadores esperados del paso aparecen de forma natural en la configuración.
+- El documento sirve para operar el programa SCA y no solo para archivarlo.
+- Otro revisor puede detectar si la deuda baja, se estanca o crece.
+- Las métricas ayudan a priorizar trabajo y no solo a describirlo.
 
 ## Que valida el workflow automaticamente
 
 - `validate-steps.yml` se ejecuta con `push`, `pull_request` y `workflow_dispatch`.
-- `scripts/validate-step-09.py` comprueba este paso contra el archivo configurado.
-- El workflow busca `## Backlog abierto` dentro de `docs/dependency-metrics.md`.
-- El workflow busca `## Tiempo medio de remediacion` dentro de `docs/dependency-metrics.md`.
-- El workflow busca `## Excepciones activas` dentro de `docs/dependency-metrics.md`.
-- El workflow busca `## Tendencia semanal` dentro de `docs/dependency-metrics.md`.
+- `scripts/validate-step-09.py` comprueba que el documento de métricas exista en `docs/dependency-metrics.md`.
+- El workflow busca `## Backlog abierto` dentro del archivo.
+- El workflow busca `## Tiempo medio de remediacion` dentro del archivo.
+- El workflow busca `## Excepciones activas` dentro del archivo.
+- El workflow busca `## Tendencia semanal` dentro del archivo.
 
 ## Criterio de finalizacion
 
