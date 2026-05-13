@@ -2,47 +2,62 @@
 
 ## Objetivo de aprendizaje
 
-Este paso introduce un control de SCA y debe dejar un cambio comprensible en .github/dependabot.yml.
+Entender que un programa SCA avanzado no debería mirar un solo gestor de paquetes: debe cubrir todas las superficies reales por las que entran dependencias al repositorio.
 
 ## Que vas a cambiar y por que
 
-Actualiza .github/dependabot.yml para que el control de "configuracion multi ecosistema" quede explícito y revisable.
+En este paso vas a configurar `.github/dependabot.yml` para varios ecosistemas. La razón es simple: un repositorio moderno puede introducir riesgo desde librerías de aplicación, utilidades internas y también desde imágenes base.
+
+En este template la cobertura mínima pasa por tres ecosistemas distintos:
+
+- `npm` para dependencias JavaScript y tooling asociado
+- `pip` para scripts, automatizaciones o utilidades Python
+- `docker` para imágenes base y software empaquetado en contenedores
+
+Si dejas uno fuera, la visibilidad del programa SCA queda incompleta aunque el resto esté bien afinado.
 
 ## Archivo y seccion que debes modificar
 
 - Archivo objetivo: `.github/dependabot.yml`.
-- Aplícalo en la parte del archivo que corresponde al título del paso.
-- Si el archivo aún no existe, créalo con este contenido inicial y luego evoluciona desde ahí en los siguientes pasos.
+- Revisa la lista `updates:` y confirma que contiene un bloque por ecosistema relevante.
+- Este paso no va de detalle fino todavía; va de asegurar que la cobertura cubre las tres vías principales de entrada de terceros.
 
 ## Cambio base recomendado
 
-Este bloque no es para pegar a ciegas: úsalo como punto de partida y ajústalo al contexto del repositorio.
+Usa esta estructura como base para una cobertura multi ecosistema explícita:
 
 ```yaml
-package-ecosystem: "npm"
-package-ecosystem: "pip"
-package-ecosystem: "docker"
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+
+  - package-ecosystem: "pip"
+    directory: "/"
+
+  - package-ecosystem: "docker"
+    directory: "/"
 ```
 
 ## Como adaptarlo correctamente
 
-- Mantén el cambio pequeño y centrado en una sola idea por paso.
-- Usa nombres claros para secciones, reglas o jobs.
-- Evita añadir configuración que no esté relacionada con el objetivo del paso.
+- Mantén un bloque separado por ecosistema; no mezcles lógicas distintas en una sola entrada.
+- Ajusta `directory` si el manifiesto no está en la raíz.
+- No des por hecho que `docker` es opcional si el repositorio usa imágenes base en su cadena de entrega.
+- Si un ecosistema no aplica en un caso real, la excepción debe estar justificada, no omitida por descuido.
 
 ## Que deberia verse al terminar
 
-- La intención del cambio se entiende leyendo el archivo.
-- El archivo muestra el control sin depender de comentarios ambiguos.
-- Los marcadores esperados del paso aparecen de forma natural en la configuración.
+- El archivo deja clara la cobertura sobre `npm`, `pip` y `docker`.
+- Otro revisor puede entender que el programa SCA mira varias superficies de riesgo y no solo la principal.
+- La configuración parece diseñada para cobertura real, no para cumplir una lista mínima simbólica.
 
 ## Que valida el workflow automaticamente
 
 - `validate-steps.yml` se ejecuta con `push`, `pull_request` y `workflow_dispatch`.
-- `scripts/validate-step-02.py` comprueba este paso contra el archivo configurado.
-- El workflow busca `package-ecosystem: "npm"` dentro de `.github/dependabot.yml`.
-- El workflow busca `package-ecosystem: "pip"` dentro de `.github/dependabot.yml`.
-- El workflow busca `package-ecosystem: "docker"` dentro de `.github/dependabot.yml`.
+- `scripts/validate-step-02.py` comprueba que la cobertura multi ecosistema exista en `.github/dependabot.yml`.
+- El workflow busca `package-ecosystem: "npm"` dentro del archivo.
+- El workflow busca `package-ecosystem: "pip"` dentro del archivo.
+- El workflow busca `package-ecosystem: "docker"` dentro del archivo.
 
 ## Criterio de finalizacion
 
