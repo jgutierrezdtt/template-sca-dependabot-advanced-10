@@ -2,51 +2,61 @@
 
 ## Objetivo de aprendizaje
 
-Este paso introduce un control de SCA y debe dejar un cambio comprensible en docs/dependency-exceptions.yml.
+Entender que una excepción avanzada no solo se registra: debe quedar trazada de forma que cualquier revisor pueda reconstruir qué se aceptó, por qué, quién responde y cuándo debe revisarse.
 
 ## Que vas a cambiar y por que
 
-Actualiza docs/dependency-exceptions.yml para que el control de "excepciones con trazabilidad completa" quede explícito y revisable.
+En este paso vas a trabajar sobre `docs/dependency-exceptions.yml` para que cada excepción sea auditables y no una nota ambigua. La trazabilidad completa es lo que permite distinguir entre una excepción controlada y una deuda que simplemente se escondió en un archivo.
+
+Una excepción con trazabilidad completa deja visibles al menos estas piezas:
+
+- el paquete afectado
+- el motivo técnico u operativo
+- el owner responsable
+- la fecha de caducidad o revisión
+
+Sin una de ellas, la excepción pierde contexto y se vuelve más difícil de revisar o cerrar correctamente.
 
 ## Archivo y seccion que debes modificar
 
 - Archivo objetivo: `docs/dependency-exceptions.yml`.
-- Aplícalo en la parte del archivo que corresponde al título del paso.
-- Si el archivo aún no existe, créalo con este contenido inicial y luego evoluciona desde ahí en los siguientes pasos.
+- Revisa la lista `exceptions:` y completa cada entrada como un caso independiente.
+- Este paso no va de acumular excepciones, sino de garantizar que cada una tenga información suficiente para gobernarse.
 
 ## Cambio base recomendado
 
-Este bloque no es para pegar a ciegas: úsalo como punto de partida y ajústalo al contexto del repositorio.
+Usa esta estructura como referencia para una excepción con trazabilidad completa:
 
 ```yaml
 exceptions:
-package:
-reason:
-owner:
-expires_on:
+  - package: "lodash"
+    reason: "La actualización propuesta rompe una integración todavía no migrada"
+    owner: "team-platform"
+    expires_on: "2026-07-31"
 ```
 
 ## Como adaptarlo correctamente
 
-- Mantén el cambio pequeño y centrado en una sola idea por paso.
-- Usa nombres claros para secciones, reglas o jobs.
-- Evita añadir configuración que no esté relacionada con el objetivo del paso.
+- Describe el motivo con suficiente detalle como para que otro equipo pueda entenderlo sin buscar una PR antigua.
+- Usa un owner real que pueda responder por la decisión.
+- No dejes `expires_on` como campo testimonial; debe implicar revisión futura.
+- Separa excepciones distintas en entradas distintas para no mezclar justificaciones.
 
 ## Que deberia verse al terminar
 
-- La intención del cambio se entiende leyendo el archivo.
-- El archivo muestra el control sin depender de comentarios ambiguos.
-- Los marcadores esperados del paso aparecen de forma natural en la configuración.
+- El archivo actúa como registro de decisiones y no como una lista opaca de exclusiones.
+- Otro revisor puede reconstruir el contexto de cada excepción sin información adicional.
+- La deuda queda documentada con suficiente precisión para ser auditada y cerrada después.
 
 ## Que valida el workflow automaticamente
 
 - `validate-steps.yml` se ejecuta con `push`, `pull_request` y `workflow_dispatch`.
-- `scripts/validate-step-05.py` comprueba este paso contra el archivo configurado.
-- El workflow busca `exceptions:` dentro de `docs/dependency-exceptions.yml`.
-- El workflow busca `package:` dentro de `docs/dependency-exceptions.yml`.
-- El workflow busca `reason:` dentro de `docs/dependency-exceptions.yml`.
-- El workflow busca `owner:` dentro de `docs/dependency-exceptions.yml`.
-- El workflow busca `expires_on:` dentro de `docs/dependency-exceptions.yml`.
+- `scripts/validate-step-05.py` comprueba que el registro de excepciones exista en `docs/dependency-exceptions.yml`.
+- El workflow busca `exceptions:` dentro del archivo.
+- El workflow busca `package:` dentro del archivo.
+- El workflow busca `reason:` dentro del archivo.
+- El workflow busca `owner:` dentro del archivo.
+- El workflow busca `expires_on:` dentro del archivo.
 
 ## Criterio de finalizacion
 
