@@ -2,49 +2,64 @@
 
 ## Objetivo de aprendizaje
 
-Este paso introduce un control de SCA y debe dejar un cambio comprensible en docs/sca-checklist.md.
+Cerrar el tutorial con una comprobación final de madurez que resuma los controles esenciales del recorrido advanced.
 
 ## Que vas a cambiar y por que
 
-Actualiza docs/sca-checklist.md para que el control de "medalla final sca advanced" quede explícito y revisable.
+En este paso vas a completar `docs/sca-checklist.md` para convertirlo en una verificación final del estado del repositorio. No se trata solo de marcar casillas: la checklist debe dejar claro si el sistema tiene cobertura automatizada, gobierno de PRs, excepciones trazables y visibilidad operativa suficiente.
+
+Este cierre importa porque un programa SCA maduro no depende de una sola pieza. Necesita que varias capacidades trabajen juntas:
+
+- detección continua con Dependabot
+- gobierno explícito sobre PRs de dependencias
+- excepciones registradas y revisables
+- reporting suficiente para seguir la operación
 
 ## Archivo y seccion que debes modificar
 
 - Archivo objetivo: `docs/sca-checklist.md`.
-- Aplícalo en la parte del archivo que corresponde al título del paso.
-- Si el archivo aún no existe, créalo con este contenido inicial y luego evoluciona desde ahí en los siguientes pasos.
+- Mantén las cuatro secciones base que exige el validador.
+- Haz que la checklist se lea como una validación final del nivel alcanzado, no como texto genérico.
 
 ## Cambio base recomendado
 
-Este bloque no es para pegar a ciegas: úsalo como punto de partida y ajústalo al contexto del repositorio.
+Usa esta estructura como base para el cierre del tutorial:
 
 ```markdown
 ## Dependabot activo
+Confirma que la detección y actualización automatizada de dependencias está habilitada.
+
 ## Gobierno de PRs activo
+Verifica que las PRs de dependencias pasan por controles y condiciones explícitas.
+
 ## Excepciones documentadas
+Comprueba que los riesgos aceptados quedan registrados con responsable y vencimiento.
+
 ## Reporting disponible
+Confirma que el equipo puede medir backlog, remediación y tendencia operativa.
 ```
 
 ## Como adaptarlo correctamente
 
-- Mantén el cambio pequeño y centrado en una sola idea por paso.
-- Usa nombres claros para secciones, reglas o jobs.
-- Evita añadir configuración que no esté relacionada con el objetivo del paso.
+- Usa cada sección como un criterio verificable, no como un titular vacío.
+- Evita repetir el contenido exacto de pasos anteriores; aquí toca resumir el estado final alcanzado.
+- Si algo depende de otro documento o workflow, deja clara esa relación.
+- La checklist debe servir para una revisión rápida de madurez antes de dar el template por bueno.
 
 ## Que deberia verse al terminar
 
-- La intención del cambio se entiende leyendo el archivo.
-- El archivo muestra el control sin depender de comentarios ambiguos.
-- Los marcadores esperados del paso aparecen de forma natural en la configuración.
+- El repositorio queda con una definición clara de lo que significa completar el nivel advanced.
+- Otro revisor puede usar la checklist para comprobar si faltan capacidades importantes.
+- El cierre del tutorial conecta automatización, gobierno, excepciones y reporting en una sola vista.
 
 ## Que valida el workflow automaticamente
 
 - `validate-steps.yml` se ejecuta con `push`, `pull_request` y `workflow_dispatch`.
-- `scripts/validate-step-10.py` comprueba este paso contra el archivo configurado.
-- El workflow busca `## Dependabot activo` dentro de `docs/sca-checklist.md`.
-- El workflow busca `## Gobierno de PRs activo` dentro de `docs/sca-checklist.md`.
-- El workflow busca `## Excepciones documentadas` dentro de `docs/sca-checklist.md`.
-- El workflow busca `## Reporting disponible` dentro de `docs/sca-checklist.md`.
+- `scripts/validate-step-10.py` comprueba que la checklist final exista en `docs/sca-checklist.md`.
+- El workflow busca `## Dependabot activo` dentro del archivo.
+- El workflow busca `## Gobierno de PRs activo` dentro del archivo.
+- El workflow busca `## Excepciones documentadas` dentro del archivo.
+- El workflow busca `## Reporting disponible` dentro del archivo.
 
 ## Criterio de finalizacion
 
