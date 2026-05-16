@@ -4,6 +4,12 @@
 
 Entender que un programa SCA avanzado no debería mirar un solo gestor de paquetes: debe cubrir todas las superficies reales por las que entran dependencias al repositorio.
 
+
+## Por que importa esto
+
+En un repositorio real las dependencias no entran por un solo canal. Un proyecto moderno puede tener paquetes npm para el frontend, dependencias pip para scripts de automatizacion, imagenes Docker para el entorno de ejecucion y acciones de GitHub que tambien son software de terceros.
+
+Cubrir solo el ecosistema principal es uno de los errores mas frecuentes en programas SCA. La superficie no cubierta es exactamente donde los ataques de supply chain buscan entrar, porque los equipos no la vigilan.
 ## Que vas a cambiar y por que
 
 En este paso vas a configurar `.github/dependabot.yml` para varios ecosistemas. La razón es simple: un repositorio moderno puede introducir riesgo desde librerías de aplicación, utilidades internas y también desde imágenes base.
@@ -38,6 +44,13 @@ updates:
     directory: "/"
 ```
 
+
+## Que te esta enseñando este cambio
+
+- La configuracion multi-ecosistema no es mas compleja que la de un solo ecosistema: es el mismo patron repetido con distintas entradas en `updates:`. Lo que cambia es la cobertura.
+- Cada ecosistema tiene su propio ciclo de actualizaciones, su propio volumen de alertas y su propio riesgo de supply chain. Configurarlos por separado permite politicas distintas cuando es necesario.
+- Incluir `github-actions` como ecosistema es una practica avanzada que muchos equipos pasan por alto. Las acciones de terceros son codigo que se ejecuta en el pipeline con acceso completo al repositorio.
+- Este paso enseña que cobertura completa no significa complejidad innecesaria: es disciplina de inventario.
 ## Como adaptarlo correctamente
 
 - Mantén un bloque separado por ecosistema; no mezcles lógicas distintas en una sola entrada.

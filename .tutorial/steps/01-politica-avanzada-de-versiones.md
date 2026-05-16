@@ -4,6 +4,12 @@
 
 Entender como definir una politica de versiones avanzada en Dependabot para controlar no solo que se actualiza, sino tambien como se propone cada cambio y que excepciones quedan fuera de la norma general.
 
+
+## Por que importa esto
+
+Sin una politica de versiones explicita, Dependabot propone cualquier actualizacion que encuentre, incluyendo cambios mayores que pueden romper la aplicacion. Un equipo que no tiene politica acaba aprobando PRs por inercia o rechazandolas por miedo, ninguna de las dos opciones es gobierno.
+
+Una politica avanzada define la norma: que se acepta automaticamente, que requiere revision humana y que queda excluido temporalmente. Con esa base, el equipo puede operar el programa SCA sin depender del conocimiento tacito de cada revisor.
 ## Que vas a cambiar y por que
 
 En este paso vas a trabajar sobre `.github/dependabot.yml` para fijar una politica de versionado mas consciente. En un escenario avanzado no basta con activar actualizaciones: necesitas decidir la estrategia general y modelar excepciones especificas cuando una dependencia no puede seguirla.
@@ -40,6 +46,13 @@ Como leerlo:
 - `ignore` abre el espacio de excepciones justificadas.
 - `dependency-name` impide que la excepción quede difusa o demasiado amplia.
 
+
+## Que te esta enseñando este cambio
+
+- En entornos avanzados, la combinacion de `versioning-strategy` e `ignore` no es una opcion de conveniencia: es la forma de codificar la politica de riesgo del equipo directamente en el archivo de configuracion.
+- Una politica sin excepciones no es realista; una politica hecha solo de excepciones no es una politica. La tension entre las dos es lo que este paso quiere que entiendas.
+- `versioning-strategy: increase` es la estrategia mas directa: propone la version exacta en lugar de un rango. Es la eleccion correcta cuando quieres control maximo sobre que versiones entran.
+- Acotar cada excepcion a un `dependency-name` concreto impide que las exclusiones se conviertan en comodines que silencian el control completo.
 ## Como adaptarlo correctamente
 
 - Empieza por la estrategia general y usa `ignore` solo para casos concretos.

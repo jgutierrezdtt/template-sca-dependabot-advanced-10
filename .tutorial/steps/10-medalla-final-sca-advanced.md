@@ -4,6 +4,12 @@
 
 Cerrar el tutorial con una comprobación final de madurez que resuma los controles esenciales del recorrido advanced.
 
+
+## Por que importa esto
+
+Cerrar el tutorial con una comprobacion de madurez no es solo un ejercicio de validacion: es el momento de consolidar la vision completa de lo que has construido y entender como se relacionan los distintos controles entre si.
+
+Un programa SCA avanzado no es la suma de 10 configuraciones independientes. Es un sistema donde la politica de versiones, las excepciones, el quality gate y las metricas se refuerzan mutuamente.
 ## Que vas a cambiar y por que
 
 En este paso vas a completar `docs/sca-checklist.md` para convertirlo en una verificación final del estado del repositorio. No se trata solo de marcar casillas: la checklist debe dejar claro si el sistema tiene cobertura automatizada, gobierno de PRs, excepciones trazables y visibilidad operativa suficiente.
@@ -39,6 +45,13 @@ Comprueba que los riesgos aceptados quedan registrados con responsable y vencimi
 Confirma que el equipo puede medir backlog, remediación y tendencia operativa.
 ```
 
+
+## Que te esta enseñando este cambio
+
+- La comprobacion final del checklist verifica que los cuatro pilares del programa SCA estan operativos: Dependabot activo, gobierno de PRs, excepciones documentadas y reporting disponible. Ninguno de los cuatro es suficiente por si solo.
+- Un programa que tiene Dependabot activo pero sin gobierno de PRs genera alertas sin proceso de cierre. Un programa con excepciones documentadas pero sin revision periodica acumula riesgo sin saberlo.
+- El nivel advanced no significa mas reglas: significa mayor precision, mayor trazabilidad y mayor capacidad de operar el programa a escala.
+- Lo que has construido en estos 10 pasos es la base tecnica de un programa SCA profesional. El siguiente nivel es integrarlo con herramientas SBOM, escaneado de licencias y deteccion de dependencias maliciosas.
 ## Como adaptarlo correctamente
 
 - Usa cada sección como un criterio verificable, no como un titular vacío.

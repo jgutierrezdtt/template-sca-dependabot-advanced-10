@@ -4,6 +4,12 @@
 
 Entender que el impacto real de una vulnerabilidad cambia cuando la dependencia es transitiva y cuando su scope limita o amplifica la exposición del sistema.
 
+
+## Por que importa esto
+
+La mayoria de las vulnerabilidades de supply chain entran por dependencias transitivas, no directas. Si el equipo solo mira el manifiesto principal, puede creer que esta protegido cuando en realidad tiene vectores de entrada que no ve.
+
+Entender la transitividad no es un detalle tecnico: es lo que separa un analisis de impacto real de una lectura superficial de alertas. Un paquete vulnerable que llega como transitivo puede tener una ruta de remediacion completamente distinta a uno que controlas directamente.
 ## Que vas a cambiar y por que
 
 En este paso vas a reforzar `docs/dependabot-triage.md` para que el análisis no se quede en el nombre del paquete vulnerable. En escenarios avanzados necesitas responder dos preguntas adicionales:
@@ -37,6 +43,13 @@ Explica si el scope es de producción, desarrollo, build o test y qué cambia es
 Aclara si puedes corregir directamente o si dependes de una actualización en cadena.
 ```
 
+
+## Que te esta enseñando este cambio
+
+- El analisis de impacto en el contexto de dependencias transitivas requiere responder tres preguntas: quien arrastra el paquete vulnerable, en que scope llega y puedo corregirlo directamente o debo esperar al paquete padre.
+- Documentar esas tres respuestas en el informe de triage es lo que convierte una alerta en un plan de remediacion accionable.
+- El scope (produccion, desarrollo, test) no cambia si la vulnerabilidad existe: cambia la urgencia de corregirla y el riesgo de no hacerlo.
+- Este paso enseña que la profundidad del analisis es lo que diferencia un programa SCA avanzado de uno que simplemente responde a alertas sin entender el contexto.
 ## Como adaptarlo correctamente
 
 - No trates una dependencia transitiva como si estuviera bajo control directo si no lo está.

@@ -4,6 +4,12 @@
 
 Entender como agrupar actualizaciones no rompedoras para reducir ruido operativo sin perder visibilidad sobre cambios que requieren una revisión más cuidadosa.
 
+
+## Por que importa esto
+
+Un programa SCA sin agrupacion genera una PR por cada actualizacion disponible. En un repositorio con 50 dependencias y cadencia semanal, eso puede ser decenas de PRs simultaneas. El equipo aprende a ignorarlas y el control se vuelve cosmetico.
+
+Los grupos no ocultan informacion: la reorganizan. Agrupar parches y cambios menores juntos reduce el ruido sin perder visibilidad sobre los cambios mayores que merecen revision separada.
 ## Que vas a cambiar y por que
 
 En este paso vas a usar grupos en `.github/dependabot.yml` para ordenar mejor la cola de PRs. En un repositorio avanzado, recibir una PR por cada parche menor suele saturar la revisión y hace más difícil distinguir lo importante de lo rutinario.
@@ -33,6 +39,13 @@ groups:
       - patch
 ```
 
+
+## Que te esta enseñando este cambio
+
+- La prioridad entre grupos no es solo un nombre: define cual se revisa primero cuando hay varias PRs abiertas. Un grupo de `security` con prioridad alta hace que esas PRs suban automaticamente a la cabeza de la cola.
+- La separacion entre cambios `minor+patch` y `major` es la distincion mas util en la practica. Los primeros son casi siempre seguros de agrupar; los segundos requieren analisis individual.
+- Nombrar los grupos con intencion (`non-breaking`, `security-updates`) comunica la politica directamente en el archivo. Otro revisor entiende el criterio sin documentacion adicional.
+- Este patron de grupos es el que usan los equipos con mayor volumen de dependencias para mantener la operacion sostenible sin sacrificar cobertura.
 ## Como adaptarlo correctamente
 
 - Mantén el grupo dentro del ecosistema correcto.

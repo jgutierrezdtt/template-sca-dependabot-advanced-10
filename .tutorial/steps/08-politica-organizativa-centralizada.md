@@ -4,6 +4,12 @@
 
 Entender que en un escenario avanzado la política de dependencias no debería vivir repartida por equipos o repositorios sin coordinación, sino consolidada en un marco común y centralizado.
 
+
+## Por que importa esto
+
+Cuando cada equipo gestiona sus dependencias con su propia politica (o sin ninguna), la organizacion no puede medir ni comparar el nivel de seguridad entre repositorios. Un equipo puede tener todo bajo control mientras otro acumula deuda sin saberlo.
+
+La politica centralizada no elimina la autonomia de los equipos: define el marco comun dentro del cual cada equipo tiene flexibilidad. Sin ese marco, buenas practicas es una frase sin contenido medible.
 ## Que vas a cambiar y por que
 
 En este paso vas a trabajar sobre `docs/dependency-policy.md` para que la política no parezca una preferencia local del repositorio, sino una referencia que podría gobernar varios equipos con los mismos criterios de base.
@@ -41,6 +47,13 @@ Fija plazos comunes para que la prioridad no cambie arbitrariamente entre equipo
 Aclara cuándo un caso sale del circuito normal y requiere intervención superior.
 ```
 
+
+## Que te esta enseñando este cambio
+
+- Las cuatro secciones de la politica (cobertura, excepciones, SLA, escalado) responden a las cuatro preguntas que cualquier auditor o responsable de seguridad hace al revisar un programa SCA.
+- La cobertura minima define que se exige; las reglas de excepcion definen como se acepta el riesgo; el SLA define los tiempos; el escalado define cuando un caso supera la capacidad del equipo local.
+- Una politica centralizada que nadie puede consultar facilmente no sirve. El documento debe vivir en un lugar accesible y revisable.
+- Este paso enseña que gobernar un programa de seguridad a escala organizativa requiere documentos de politica tan cuidados como los de arquitectura o API.
 ## Como adaptarlo correctamente
 
 - Escribe la política como norma compartida, no como detalle local del repositorio.

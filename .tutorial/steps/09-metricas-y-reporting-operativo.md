@@ -4,6 +4,12 @@
 
 Entender qué métricas ayudan a operar el programa SCA en el día a día y no solo a presentar estado una vez al mes.
 
+
+## Por que importa esto
+
+Sin metricas, el estado del programa SCA es una opinion. Con metricas, es un hecho observable. La diferencia importa cuando hay que decidir si invertir mas recursos en el control, si el programa esta mejorando o empeorando, o si alguna decision pasada esta generando deuda acumulada.
+
+Las metricas operativas no son para presentar en un dashboard mensual: son para operar el programa en el dia a dia. Un backlog que crece semana a semana es una señal de alerta antes de que se convierta en un problema visible.
 ## Que vas a cambiar y por que
 
 En este paso vas a trabajar sobre `docs/dependency-metrics.md` con foco operativo. La idea es que el documento sirva para responder preguntas prácticas: cuánto trabajo queda abierto, cuánto tardas en cerrarlo, cuántas excepciones siguen consumiendo capacidad y si la tendencia semanal mejora o empeora.
@@ -39,6 +45,13 @@ Cuenta cuántas decisiones de aceptación de riesgo siguen abiertas y qué peso 
 Describe si backlog y excepciones suben, bajan o se mantienen durante la semana.
 ```
 
+
+## Que te esta enseñando este cambio
+
+- Backlog, tiempo de remediacion, excepciones activas y tendencia semanal son las cuatro metricas minimas que permiten operar el programa SCA con criterio. Cada una responde una pregunta distinta.
+- La tendencia semanal es la metrica mas util a corto plazo: no importa si el backlog es de 5 o de 50, lo que importa es si va subiendo o bajando.
+- Separar metricas de reporting ejecutivo de metricas operativas es una decision de audiencia: las metricas de este paso son para el equipo tecnico que opera el programa.
+- Este paso enseña que medir un programa de seguridad no es un fin en si mismo: las metricas solo tienen valor si producen decisiones de mejora o detectan degradaciones antes de que sean problemas.
 ## Como adaptarlo correctamente
 
 - Elige métricas que el equipo pueda actualizar y usar de verdad.

@@ -4,6 +4,12 @@
 
 Entender que una PR de dependencias necesita superar un gate previo y visible antes de considerarse lista para revisión o integración.
 
+
+## Por que importa esto
+
+Una PR de dependencias sin quality gate depende de que el revisor humano recuerde todos los criterios correctos cada vez. Eso no escala: con el tiempo, los criterios se aplican de forma inconsistente y el nivel de seguridad del programa varia segun quien revise.
+
+Un quality gate convierte los criterios del equipo en una comprobacion automatica que se ejecuta igual independientemente de quien este disponible o de cuantas PRs haya abiertas.
 ## Que vas a cambiar y por que
 
 En este paso vas a reforzar `.github/workflows/dependency-governance.yml` como puerta de calidad. En un flujo avanzado, la automatización no solo informa; también decide si una PR cumple condiciones mínimas para entrar en el camino normal.
@@ -37,6 +43,13 @@ jobs:
     name: Check dependency labels
 ```
 
+
+## Que te esta enseñando este cambio
+
+- La diferencia entre un quality gate y una recomendacion informal es que el gate bloquea el avance si no se cumple la condicion. Eso es lo que lo convierte en un control y no en una preferencia.
+- Diseñar el gate alrededor de labels verificables es una forma pragmatica de empezar: las labels son faciles de auditar y pueden evolucionar hacia criterios mas sofisticados.
+- Un quality gate visible en el workflow es un artefacto de gobierno: cualquier colaborador puede ver que condiciones se comprueban antes de que una PR avance.
+- Este patron es la base sobre la que se construyen los controles mas avanzados de gobierno de dependencias en plataformas grandes.
 ## Como adaptarlo correctamente
 
 - Formula el gate como una condición observable y no como una intención vaga.

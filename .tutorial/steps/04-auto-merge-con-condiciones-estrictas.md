@@ -4,6 +4,12 @@
 
 Entender que el auto-merge solo es aceptable cuando la PR ya ha pasado por un conjunto mínimo de condiciones explícitas y comprobables.
 
+
+## Por que importa esto
+
+Auto-merge es una de las caracteristicas que mas rapido genera incidentes si se configura sin criterios previos. Una PR que se fusiona automaticamente sin pasar por validaciones puede introducir regresiones, incompatibilidades o incluso dependencias maliciosas si el paquete ha sido comprometido.
+
+La condicion previa no es un obstaculo: es lo que convierte el auto-merge de una decision arriesgada en una herramienta de productividad segura.
 ## Que vas a cambiar y por que
 
 En este paso vas a trabajar sobre `.github/workflows/dependency-governance.yml` para dejar claro el punto previo a cualquier fusión automática. En un escenario avanzado, el auto-merge no puede basarse en confianza implícita; necesita un workflow que verifique señales mínimas antes de considerar una PR candidata.
@@ -37,6 +43,13 @@ jobs:
     name: Check dependency labels
 ```
 
+
+## Que te esta enseñando este cambio
+
+- Las condiciones estrictas antes del auto-merge son la diferencia entre automatizar con criterio y automatizar con riesgo. Las dos configuraciones parecen iguales en el YAML pero tienen consecuencias completamente distintas.
+- Limitar el auto-merge a PRs de Dependabot y a tipos `patch` unicamente es la configuracion mas conservadora y mas segura para empezar.
+- El concepto de condicion estricta es transferible: el mismo principio aplica a cualquier automatizacion de merge, no solo a dependencias.
+- Antes de habilitar auto-merge en produccion, el equipo debe haber validado que los tests automaticos cubren suficiente superficie. Sin tests, el auto-merge acelera la introduccion de errores.
 ## Como adaptarlo correctamente
 
 - Asegúrate de que el workflow se ejecuta antes de cualquier decisión de fusión.

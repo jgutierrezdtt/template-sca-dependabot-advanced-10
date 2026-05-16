@@ -4,6 +4,12 @@
 
 Entender que una excepción avanzada no solo se registra: debe quedar trazada de forma que cualquier revisor pueda reconstruir qué se aceptó, por qué, quién responde y cuándo debe revisarse.
 
+
+## Por que importa esto
+
+Una excepcion sin trazabilidad completa es un riesgo sin gobierno. Puede existir en el registro por meses sin que nadie sepa si el motivo sigue siendo valido, quien es responsable de revisarla o cuando debio haberse cerrado.
+
+En auditorias de seguridad, las excepciones son exactamente lo que se revisa con mas cuidado: son las decisiones en las que el equipo eligio no aplicar el control estandar. Si no tienen justificacion, owner y fecha, no son excepciones gobernadas: son omisiones documentadas.
 ## Que vas a cambiar y por que
 
 En este paso vas a trabajar sobre `docs/dependency-exceptions.yml` para que cada excepción sea auditables y no una nota ambigua. La trazabilidad completa es lo que permite distinguir entre una excepción controlada y una deuda que simplemente se escondió en un archivo.
@@ -35,6 +41,13 @@ exceptions:
     expires_on: "2026-07-31"
 ```
 
+
+## Que te esta enseñando este cambio
+
+- La trazabilidad completa (package + reason + owner + expires_on + status) no es burocracia: es el minimo para que una excepcion sea defendible ante cualquier revision interna o externa.
+- Añadir un campo `status` (active, under-review, closed) convierte el registro en algo vivo que puede gestionarse, no solo en un inventario estatico.
+- La diferencia entre el nivel profesional y el nivel avanzado es la precision: aqui no basta con que los campos existan, deben contener informacion real que otro revisor puede usar para tomar decisiones.
+- Este patron de trazabilidad completa es el estandar en entornos regulados donde las excepciones de seguridad requieren evidencia de revision periodica.
 ## Como adaptarlo correctamente
 
 - Describe el motivo con suficiente detalle como para que otro equipo pueda entenderlo sin buscar una PR antigua.
